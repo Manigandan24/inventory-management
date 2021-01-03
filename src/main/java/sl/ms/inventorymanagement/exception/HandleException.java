@@ -30,4 +30,14 @@ public class HandleException extends ResponseEntityExceptionHandler {
 		error.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 		return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	@ExceptionHandler(value= {ProductNotFound.class})
+	public ResponseEntity<Object> notFoundExceptions(
+			Exception ex, WebRequest request) {
+		ErrorMessage error=new ErrorMessage();
+		error.setErrorCode("E102");
+		error.setErrorDetail(ex.getLocalizedMessage());
+		error.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

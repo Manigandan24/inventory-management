@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import sl.ms.inventorymanagement.entity.Product;
 import sl.ms.inventorymanagement.entity.ProductDto;
+import sl.ms.inventorymanagement.exception.ProductNotFound;
 import sl.ms.inventorymanagement.repository.ProductRepo;
 
 @Service
@@ -22,12 +23,12 @@ public class ProductService {
 		return productRepo.findAll();
 	}
 
-	public Product findByProductId(int productId) {
+	public Object findByProductId(int productId) {
 		Optional<Product> product = productRepo.findById(productId);
 		if (product.isPresent())
 			return product.get();
 		else
-			return null;
+			throw new ProductNotFound();
 	}
 
 	public void updateProduct(int productId, Product product) {
