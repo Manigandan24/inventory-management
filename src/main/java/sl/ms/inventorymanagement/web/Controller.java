@@ -42,7 +42,7 @@ public class Controller {
 		return new ResponseEntity<>(productService.findByProductId(productId),HttpStatus.OK);
 	}
 
-	@PostMapping(path = "/{product_id}")
+	@PostMapping(path = "/{product_id}",consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String addInventory(@PathVariable(name = "product_id") int productId,@RequestBody Product product) {
 		inventService.addInventory(productId,product);
 		return "Inventory Added Successfully";
