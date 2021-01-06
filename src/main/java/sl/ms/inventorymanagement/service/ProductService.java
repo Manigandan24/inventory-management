@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import sl.ms.inventorymanagement.entity.Product;
 import sl.ms.inventorymanagement.entity.ProductDto;
 import sl.ms.inventorymanagement.exception.ProductNotFound;
+import sl.ms.inventorymanagement.logs.InventoryLogger;
 import sl.ms.inventorymanagement.repository.ProductRepo;
 
 @Service
@@ -18,20 +19,29 @@ public class ProductService {
 
 	@Autowired
 	ProductRepo productRepo;
+	
+	InventoryLogger logger=new InventoryLogger();
 
 	public List<Product> getProducts() {
 		return productRepo.findAll();
 	}
 
 	public Object findByProductId(int productId) {
+		String startTime=String.valueOf(System.currentTimeMillis());
 		Optional<Product> product = productRepo.findById(productId);
-		if (product.isPresent())
-			return product.get();
-		else
+		if (product.isPresent() && product.get().getQuantity()>0) {
+			Product prod=product.get();
+			String endTime=String.valueOf(System.currentTimeMillis());
+			
+			logger.addInventoryLogs(startTime, endTime, prod);
+			return prod;
+		}
+		else 
 			throw new ProductNotFound();
 	}
 
 	public void updateProduct(int productId, Product product) {
+		String startTime=String.valueOf(System.currentTimeMillis());
 		Optional<Product> pro = productRepo.findById(productId);
 		if (pro.isPresent()) {
 			pro.get().setId(product.getId());
@@ -40,6 +50,10 @@ public class ProductService {
 			pro.get().setQuantity(product.getQuantity());
 
 			productRepo.save(pro.get());
+			
+			String endTime=String.valueOf(System.currentTimeMillis());
+			
+			logger.addInventoryLogs(startTime, endTime, product);
 		}
 	}
 
@@ -52,6 +66,7 @@ public class ProductService {
 	}
 
 	public List<ProductDto> specificProducts() {
+		String startTime=String.valueOf(System.currentTimeMillis());
 		List<Product> list = productRepo.findAll();
 		List<Product> distinctList = productRepo.findAll();
 		List<ProductDto> list1 = new ArrayList<>();
@@ -64,6 +79,9 @@ public class ProductService {
 			list1.add(dto);
 		});
 
+		String endTime=String.valueOf(System.currentTimeMillis());
+		
+		logger.addInventoryLogs(startTime, endTime, list1);
 		return list1;
 	}
 }

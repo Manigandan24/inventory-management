@@ -19,12 +19,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import sl.ms.inventorymanagement.entity.Product;
 import sl.ms.inventorymanagement.entity.ProductDto;
+import sl.ms.inventorymanagement.logs.InventoryLogger;
 import sl.ms.inventorymanagement.service.InventoryService;
 import sl.ms.inventorymanagement.service.ProductService;
 
 @RestController
 @RequestMapping(path = "/products")
 public class Controller {
+	
+	InventoryLogger logger=new InventoryLogger();
 
 	@Autowired
 	ProductService productService;

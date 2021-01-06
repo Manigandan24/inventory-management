@@ -19,19 +19,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sl.ms.inventorymanagement.entity.Inventory;
 import sl.ms.inventorymanagement.entity.Product;
+import sl.ms.inventorymanagement.logs.InventoryLogger;
 import sl.ms.inventorymanagement.repository.InventoryRepo;
 
 @Service
 public class InventoryService {
-
+	
 	@Autowired
 	InventoryRepo inventRepo;
 
 	public void addInventory(Integer productId,Product product) {
+		InventoryLogger logger=new InventoryLogger();
+		String startTime=String.valueOf(System.currentTimeMillis());
+		
 		String request="";
 		ObjectMapper mapper=new ObjectMapper();
 		Inventory inventory = new Inventory();
-		Set<Product> products = new HashSet<Product>();
+		Set<Product> products = new HashSet<>();
 		products.clear();
 		products.add(product);
 		try {
@@ -43,11 +47,15 @@ public class InventoryService {
 		inventory.setProducts(products);
 		inventory.setRequest(request);
 		inventRepo.save(inventory);
+		String endTime=String.valueOf(System.currentTimeMillis());
+		
+		logger.addInventoryLogs(startTime, endTime, product);
 	}
 
 	public void addInventoryList(List<Product> products) {
+		InventoryLogger logger=new InventoryLogger();
 		ObjectMapper mapper=new ObjectMapper();
-		
+		String startTime=String.valueOf(System.currentTimeMillis());
 		List<Inventory> list = new ArrayList<>();
 		products.forEach(a -> {
 			Inventory inventory = new Inventory();
@@ -66,7 +74,6 @@ public class InventoryService {
 			try {
 				request=mapper.writeValueAsString(product);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			inventory.setRequest(request);
@@ -75,9 +82,13 @@ public class InventoryService {
 		});
 
 		inventRepo.saveAll(list);
+		String endTime=String.valueOf(System.currentTimeMillis());
+		logger.addInventoryLogs(startTime, endTime, products);
 	}
 
 	public void addInventoryFile(MultipartFile file) {
+		InventoryLogger logger=new InventoryLogger();
+		String startTime=String.valueOf(System.currentTimeMillis());
 		List<Inventory> list = new ArrayList<>();
 		Resource resource = file.getResource();
 
@@ -91,7 +102,8 @@ public class InventoryService {
 			e.printStackTrace();
 		}
 		inventRepo.saveAll(list);
-		//inventRepo.save(list.get(0));
+		String endTime=String.valueOf(System.currentTimeMillis());
+		logger.addInventoryLogs(startTime, endTime, list);
 	}
 
 	private Function<String, Inventory> maptoclass = (line) -> {
@@ -120,7 +132,6 @@ public class InventoryService {
 		try {
 			request=mapper.writeValueAsString(cls);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		inventory.setRequest(request);
