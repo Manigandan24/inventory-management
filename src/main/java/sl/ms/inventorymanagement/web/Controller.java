@@ -52,7 +52,7 @@ public class Controller {
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String addProducts(@RequestBody List<Product> products) {
+	public String addProductsList(@RequestBody List<Product> products) {
 		inventService.addInventoryList(products);
 		return "Inventory & Product Added Successfully";
 	}

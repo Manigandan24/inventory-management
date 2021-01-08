@@ -68,7 +68,7 @@ public class ProductService {
 	public List<ProductDto> specificProducts() {
 		String startTime=String.valueOf(System.currentTimeMillis());
 		List<Product> list = productRepo.findAll();
-		List<Product> distinctList = productRepo.findAll();
+		List<Product> distinctList /* = productRepo.findAll() */;
 		List<ProductDto> list1 = new ArrayList<>();
 		distinctList=list.stream().distinct().collect(Collectors.toList());
 		
