@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import sl.ms.inventorymanagement.entity.Product;
@@ -64,11 +65,12 @@ public class ProductService {
 			productRepo.save(pro.get());
 		}
 	}
-
+	
+	@Cacheable("supported-products")
 	public List<ProductDto> specificProducts() {
 		String startTime=String.valueOf(System.currentTimeMillis());
 		List<Product> list = productRepo.findAll();
-		List<Product> distinctList /* = productRepo.findAll() */;
+		List<Product> distinctList ;
 		List<ProductDto> list1 = new ArrayList<>();
 		distinctList=list.stream().distinct().collect(Collectors.toList());
 		

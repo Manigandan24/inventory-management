@@ -74,7 +74,7 @@ public class Controller {
 		productService.deleteProduct(productId);
 		return "product deleted successfully";
 	}
-
+	
 	@GetMapping(path = "/supported")
 	public List<ProductDto> supportedProducts() {
 		return productService.specificProducts();
