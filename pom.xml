@@ -127,6 +127,10 @@
 			<artifactId>jackson-dataformat-yaml</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
@@ -138,6 +142,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.8.0</version>
 		</dependency>
 	</dependencies>
 
@@ -152,7 +167,8 @@
 							<goal>repackage</goal>
 						</goals>
 						<configuration>
-							<mainClass>${sl.ms.inventorymanagement.InventoryManagement}</mainClass>
+							<mainClass>${sl.ms.inventorymanagement.InventoryManagement}
+							</mainClass>
 						</configuration>
 					</execution>
 				</executions>

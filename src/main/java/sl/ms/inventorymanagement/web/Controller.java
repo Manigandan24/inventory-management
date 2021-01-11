@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import sl.ms.inventorymanagement.entity.Product;
 import sl.ms.inventorymanagement.entity.ProductDto;
 import sl.ms.inventorymanagement.logs.InventoryLogger;
@@ -45,13 +47,14 @@ public class Controller {
 		return new ResponseEntity<>(productService.findByProductId(productId),HttpStatus.OK);
 	}
 
-	@PostMapping(path = "/{product_id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/{product_id}",consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public String addInventory(@PathVariable(name = "product_id") int productId,@RequestBody Product product) {
 		inventService.addInventory(productId,product);
 		return "Inventory Added Successfully";
 	}
-
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	
+	@ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
+	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public String addProductsList(@RequestBody List<Product> products) {
 		inventService.addInventoryList(products);
 		return "Inventory & Product Added Successfully";

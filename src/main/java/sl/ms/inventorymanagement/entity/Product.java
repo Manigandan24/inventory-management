@@ -5,10 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @Entity(name = "sl_product")
+@JacksonXmlRootElement(localName = "Product")
+@XmlRootElement(name="Product")
 public class Product {
 
 	@Id
@@ -21,6 +25,17 @@ public class Product {
 	private Double price;
 	private int quantity;
 
+	public Product(int Id,String name,Double price,int quantity) {
+	this.Id=Id;
+	this.name=name;
+	this.price=price;
+	this.quantity=quantity;
+	}
+	
+	public Product() {
+		
+	}
+	
 	public int getId() {
 		return Id;
 	}
