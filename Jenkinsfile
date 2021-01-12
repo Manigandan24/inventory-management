@@ -11,7 +11,7 @@ spec:
   containers:
   - name: maven
     image: maven:3.6.3-openjdk-11
-	imagePullPolicy: "IfNotPresent"
+    imagePullPolicy: IfNotPresent
     command:
     - cat
     tty: true
