@@ -11,6 +11,7 @@ spec:
   containers:
   - name: maven
     image: maven:3.6.3-openjdk-11
+	imagePullPolicy: "IfNotPresent"
     command:
     - cat
     tty: true
@@ -34,5 +35,11 @@ spec:
         }
       }
     }
+  }
+  
+  post {
+	always { 
+            cleanWs()
+        }
   }
 }
