@@ -27,9 +27,10 @@ spec:
       steps {
         container('maven') {
           sh 'mvn -version'
+		  sh 'mvn clean install --settings settings.xml'
         }
         container('busybox') {
-          sh '/bin/busybox'
+          
         }
       }
     }
