@@ -180,21 +180,21 @@
 	<repositories>
 		<repository>
 			<id>maven-public</id>
-			<!-- <url>http://localhost:8081/repository/maven-public/</url> -->
-			<url>https://repo1.maven.org/maven2/</url>
+			<url>http://localhost:8081/repository/maven-public/</url>
+			<!-- <url>https://repo1.maven.org/maven2/</url> -->
 		</repository>
 	</repositories>
 
 	<distributionManagement>
 		<snapshotRepository>
 			<id>maven-snapshots</id>
-			<!-- <url>http://localhost:8081/repository/maven-snapshots/</url> -->
-			<url>https://repo1.maven.org/maven2/</url>
+			<url>http://localhost:8081/repository/maven-snapshots/</url>
+			<!-- <url>https://repo1.maven.org/maven2/</url> -->
 		</snapshotRepository>
 		<repository>
 			<id>maven-releases</id>
-			<!-- <url>http://localhost:8081/repository/maven-releases/</url> -->
-			<url>https://repo1.maven.org/maven2/</url>
+			<url>http://localhost:8081/repository/maven-releases/</url>
+			<!-- <url>https://repo1.maven.org/maven2/</url> -->
 		</repository>
 	</distributionManagement>
 
