@@ -8,10 +8,10 @@
         <id>localproxy</id>
         <active>true</active>
         <protocol>http</protocol>
-        <host>localhost</host>
+        <host>192.168.225.48</host>
         <port>8081</port>
 
-        <nonProxyHosts>localhost|127.*|[::1]</nonProxyHosts>
+        <nonProxyHosts>192.168.225.48|localhost|127.*|[::1]</nonProxyHosts>
     </proxy>
 </proxies>
 
@@ -37,7 +37,7 @@
     <mirror>
       <id>maven-public</id>
       <name>maven-public</name>
-      <url>http://localhost:8081/repository/maven-public/</url>
+      <url>http://192.168.225.48:8081/repository/maven-public/</url>
       <mirrorOf>*</mirrorOf>
     </mirror>
   </mirrors>
