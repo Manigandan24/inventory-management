@@ -42,14 +42,14 @@ spec:
     }
   }
   stages {
-    stage('Run maven') {
+    /*stage('Run maven') {
       steps {
         container('maven') {
           sh 'mvn -version'
 		  sh 'mvn clean install --settings settings.xml'
         }
       }
-    }
+    }*/
 	
 	stage('Build with Kaniko') {
 		environment {
@@ -58,7 +58,7 @@ spec:
      steps {
       container(name:'kaniko', shell: '/busybox/sh') {
 		sh '''#!/busybox/sh
-        /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/skmani2/inventory-management:v2
+        /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=index.docker.io/skmani2/inventory-management:v2
 		'''
       }
 	}
