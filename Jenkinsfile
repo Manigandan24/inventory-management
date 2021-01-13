@@ -20,6 +20,24 @@ spec:
     command:
     - cat
     tty: true
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
+    imagePullPolicy: Always
+    command:
+    - /busybox/cat
+    tty: true
+    volumeMounts:
+      - name: jenkins-docker-cfg
+        mountPath: /kaniko/.docker
+  volumes:
+  - name: jenkins-docker-cfg
+    projected:
+      sources:
+      - secret:
+          name: my-secret
+          items:
+            - key: .dockerconfigjson
+              path: config.json
 """
     }
   }
@@ -30,16 +48,26 @@ spec:
           sh 'mvn -version'
 		  sh 'mvn clean install --settings settings.xml'
         }
-        container('busybox') {
-          
-        }
       }
     }
+	
+	stage('Build with Kaniko') {
+		environment {
+                PATH = "/busybox:$PATH"
+        }
+     steps {
+      container('kaniko', shell: '/busybox/sh') {
+		sh '''#!/busybox/sh
+        /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/skmani2/inventory-management:v2
+		'''
+      }
+	}
   }
+ 
   
   post {
 	always { 
-            cleanWs()
+            /*cleanWs()*/
         }
   }
 }
