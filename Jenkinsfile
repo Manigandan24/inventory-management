@@ -56,7 +56,7 @@ spec:
                 PATH = "/busybox:$PATH"
         }
      steps {
-      container('kaniko', shell: '/busybox/sh') {
+      container(name:'kaniko', shell: '/busybox/sh') {
 		sh '''#!/busybox/sh
         /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/skmani2/inventory-management:v2
 		'''
@@ -67,7 +67,8 @@ spec:
  
   
   post {
-	always { 
+	always {
+			echo 'build success'
             /*cleanWs()*/
         }
   }
