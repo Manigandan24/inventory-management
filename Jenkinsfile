@@ -42,14 +42,14 @@ spec:
     }
   }
   stages {
-    stage('Run maven') {
+    /*stage('Run maven') {
       steps {
         container('maven') {
           sh 'mvn -version'
 		  sh 'mvn clean install --settings settings.xml'
         }
       }
-    }
+    }*/
 	
 	stage('Build with Kaniko') {
 		environment {
