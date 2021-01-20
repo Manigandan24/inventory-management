@@ -31,7 +31,7 @@ spec:
     tty: true
     volumeMounts:
       - name: jenkins-docker-cfg
-        mountPath: /kaniko/.docker
+        mountPath: /root
       - name: docker-cache
         mountPath: /cache    
   volumes:
@@ -42,7 +42,7 @@ spec:
           name: my-secret
           items:
             - key: .dockerconfigjson
-              path: config.json
+              path: .docker/config.json
   - name: maven-cache
     persistentVolumeClaim:
       claimName: maven-cache-pvc
