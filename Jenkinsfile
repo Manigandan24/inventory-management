@@ -15,9 +15,9 @@ spec:
     command:
     - cat
     tty: true
-	volumeMounts:
-	  mountPath: /root/.m2/repository
-	  name: maven-cache
+    volumeMounts:
+      mountPath: /root/.m2/repository
+      name: maven-cache
   - name: busybox
     image: busybox
     command:
@@ -32,7 +32,7 @@ spec:
     volumeMounts:
       - name: jenkins-docker-cfg
         mountPath: /kaniko/.docker
-	  - name: docker-cache
+      - name: docker-cache
         mountPath: /cache    
   volumes:
   - name: jenkins-docker-cfg
@@ -45,10 +45,10 @@ spec:
               path: config.json
   - name: maven-cache
     persistentVolumeClaim:
-	  claimName: maven-cache-pvc
+      claimName: maven-cache-pvc
   - name: docker-cache
     persistentVolumeClaim:
-	  claimName: docker-cache-pvc
+      claimName: docker-cache-pvc
 """
     }
   }
