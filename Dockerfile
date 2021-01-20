@@ -14,4 +14,4 @@ WORKDIR ${LOG_PATH}
 #Copy jar into image
 COPY ${JAR_FILE} /app.jar
 #run app with below cmd line..ENV variables can be overriden during runtime
-ENTRYPOINT ["java","-Dspring.profiles.active=${SPRING_PROFILE}","-jar","/app.jar"]
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=${SPRING_PROFILE} -Djava.security.egd=file:/dev/./urandom -jar /app.jar"]
