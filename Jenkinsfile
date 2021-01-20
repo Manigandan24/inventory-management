@@ -6,7 +6,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    some-label: some-label-value
+    jenkins-poc: 1-jenkins-poc
 spec:
   containers:
   - name: maven
@@ -15,6 +15,9 @@ spec:
     command:
     - cat
     tty: true
+	volumeMounts:
+	  mountPath: /root/.m2/repository
+	  name: maven-cache
   - name: busybox
     image: busybox
     command:
@@ -22,13 +25,15 @@ spec:
     tty: true
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     command:
     - /busybox/cat
     tty: true
     volumeMounts:
       - name: jenkins-docker-cfg
         mountPath: /kaniko/.docker
+	  - name: docker-cache
+        mountPath: /cache    
   volumes:
   - name: jenkins-docker-cfg
     projected:
@@ -38,6 +43,12 @@ spec:
           items:
             - key: .dockerconfigjson
               path: config.json
+  - name: maven-cache
+    persistentVolumeClaim:
+	  claimName: maven-cache-pvc
+  - name: docker-cache
+    persistentVolumeClaim:
+	  claimName: docker-cache-pvc
 """
     }
   }
