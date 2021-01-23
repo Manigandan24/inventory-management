@@ -71,7 +71,7 @@ spec:
 		sh 'pwd'
 		sh 'ls -ltr'
 		sh '''#!/busybox/sh
-        /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --no-push 
+        /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=false --no-push 
 		'''
       }
 	}
