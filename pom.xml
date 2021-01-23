@@ -180,7 +180,7 @@
 	<repositories>
 		<repository>
 			<id>maven-public</id>
-			<url>http://192.168.225.48:8081/repository/maven-public/</url>
+			<url>http://192.168.56.1:8081/repository/maven-public/</url>
 			<!-- <url>https://repo1.maven.org/maven2/</url> -->
 		</repository>
 	</repositories>
@@ -188,12 +188,12 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>maven-snapshots</id>
-			<url>http://192.168.225.48:8081/repository/maven-snapshots/</url>
+			<url>http://192.168.56.1:8081/repository/maven-snapshots/</url>
 			<!-- <url>https://repo1.maven.org/maven2/</url> -->
 		</snapshotRepository>
 		<repository>
 			<id>maven-releases</id>
-			<url>http://192.168.225.48:8081/repository/maven-releases/</url>
+			<url>http://192.168.56.1:8081/repository/maven-releases/</url>
 			<!-- <url>https://repo1.maven.org/maven2/</url> -->
 		</repository>
 	</distributionManagement>
