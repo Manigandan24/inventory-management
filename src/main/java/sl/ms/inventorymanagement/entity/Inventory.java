@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Inventory {
 	
 	@Id
-	
 	@SequenceGenerator(name = "inventseq",sequenceName = "inventory_seq",initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inventseq")
 	@JsonIgnore

@@ -13,7 +13,9 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password: sa
-  
+  sql:
+    init:
+      mode: always 
   jpa:
      database-platform: org.hibernate.dialect.H2Dialect
   h2:
@@ -26,6 +28,33 @@ spring:
   http:
      multipart:
         enabled: true
+  kafka:
+     consumer:
+        bootstrap-servers: "localhost:9092"
+        group-id: "1212"
+        auto-offset-reset: latest
+        key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+        value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+        properties:
+         spring.json.value.default.type: sl.ms.inventorymanagement.dto.Student
+         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+         "[spring.deserializer.value.delegate.class]": "org.springframework.kafka.support.serializer.JsonDeserializer"
+     producer:
+        bootstrap-servers: "localhost:9092"
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+kafka-config:
+  consumer:
+    bootstrap-server: "localhost:9092"
+    topic-name: partition-test
+    group-id: "1234"
+    offset-reset: latest
+  producer:
+    bootstrap-server: "localhost:9092"
+    topic-name: partition-test
+    group-id: "1234"
+    offset-reset: latest
 
 auth:
  private: "-----BEGIN RSA PRIVATE KEY-----\
